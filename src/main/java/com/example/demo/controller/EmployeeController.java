@@ -26,6 +26,13 @@ public class EmployeeController {
         return employeeService.getAllEmployees();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable Long id){
+        return employeeService.getEmployeeById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteEmployee(@PathVariable Long id){
         return employeeService.getEmployeeById(id)
@@ -34,5 +41,16 @@ public class EmployeeController {
                     return ResponseEntity.ok().build();
                 })
         .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id,@RequestBody Employee employee){
+        return employeeService.getEmployeeById(id)
+                .map(employee1 -> {
+                    employee.setName(employee.getName());
+                    employee.setEmail((employee.getEmail()));
+                    return ResponseEntity.ok(employeeService.updateEmployee(employee));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
