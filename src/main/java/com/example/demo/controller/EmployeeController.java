@@ -42,13 +42,12 @@ public class EmployeeController {
                 })
         .orElse(ResponseEntity.notFound().build());
     }
-
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id,@RequestBody Employee employee){
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employeeDetails) {
         return employeeService.getEmployeeById(id)
-                .map(employee1 -> {
-                    employee.setName(employee.getName());
-                    employee.setEmail((employee.getEmail()));
+                .map(employee -> {
+                    employee.setName(employeeDetails.getName());
+                    employee.setEmail(employeeDetails.getEmail());
                     return ResponseEntity.ok(employeeService.updateEmployee(employee));
                 })
                 .orElse(ResponseEntity.notFound().build());
