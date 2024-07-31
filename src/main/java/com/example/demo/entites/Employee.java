@@ -1,25 +1,49 @@
 package com.example.demo.entites;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-@Entity
-@Table(name = "employees")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String email;
+    private String department;
+    private double salary;
 
-    @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Project project;
+    public Employee (Long id,String name,String department,double salary){
+        this.id = id;
+        this.name = name;
+        this.department = department;
+        this.salary = salary;
+    }
 
+    public Long getId(){
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
 }
+
