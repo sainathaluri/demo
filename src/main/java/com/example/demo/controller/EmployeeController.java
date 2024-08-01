@@ -1,9 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.entites.Employee;
+import com.example.demo.repos.EmployeeRepo;
+import com.example.demo.service.EmployeeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -14,18 +15,18 @@ public class EmployeeController {
     //put - edit the exsiting data
     //delete - delete the data
 
-    private List<Employee> employeeList = new ArrayList<>();
-    private Long idCounter = 1L;
+    @Autowired
+    private EmployeeRepo employeeRepo;
+    @Autowired
+    private EmployeeService employeeService;
 
-    @PostMapping("/addEmployee")
+    @PostMapping()
     public Employee addEmployee(@RequestBody Employee employee){
-        employee.setId(idCounter);
-        employeeList.add(employee);
-        return employee;
+        return employeeService.saveEmployee(employee);
     }
 
     @GetMapping
     public List<Employee> getAll(){
-        return employeeList;
+        return employeeService.getAllEmployees();
     }
 }
