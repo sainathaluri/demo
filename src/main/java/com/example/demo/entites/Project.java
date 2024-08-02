@@ -11,15 +11,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "employees")
-public class Employee {
+@Table(name = "projects")
+public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String email;
 
-    @OneToOne(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Project project;
+    private String projectName;
+
+    @OneToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }
-
